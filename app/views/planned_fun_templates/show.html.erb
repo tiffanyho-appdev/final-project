@@ -1,0 +1,65 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      Planned fun #<%= @planned_fun.id %> details
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/planned_funs" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/planned_funs/<%= @planned_fun.id %>/edit" class="btn btn-block btn-outline-secondary">
+          Edit planned fun
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/delete_planned_fun/<%= @planned_fun.id %>" class="btn btn-block btn-outline-secondary">
+          Delete planned fun
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Place
+      </dt>
+      <dd>
+        <%= @planned_fun.place_id %>
+      </dd>
+
+      <dt>
+        Day
+      </dt>
+      <dd>
+        <%= @planned_fun.day_id %>
+      </dd>
+
+      <dt>
+        Order in day
+      </dt>
+      <dd>
+        <%= @planned_fun.order_in_day %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@planned_fun.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@planned_fun.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+

@@ -1,0 +1,65 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      Planned stay #<%= @planned_stay.id %> details
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/planned_stays" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/planned_stays/<%= @planned_stay.id %>/edit" class="btn btn-block btn-outline-secondary">
+          Edit planned stay
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/delete_planned_stay/<%= @planned_stay.id %>" class="btn btn-block btn-outline-secondary">
+          Delete planned stay
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Hotel
+      </dt>
+      <dd>
+        <%= @planned_stay.hotel_id %>
+      </dd>
+
+      <dt>
+        Day
+      </dt>
+      <dd>
+        <%= @planned_stay.day_id %>
+      </dd>
+
+      <dt>
+        Order in day
+      </dt>
+      <dd>
+        <%= @planned_stay.order_in_day %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@planned_stay.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@planned_stay.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+

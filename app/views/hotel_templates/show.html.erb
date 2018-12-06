@@ -1,0 +1,79 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      Hotel #<%= @hotel.id %> details
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/hotels" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/hotels/<%= @hotel.id %>/edit" class="btn btn-block btn-outline-secondary">
+          Edit hotel
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/delete_hotel/<%= @hotel.id %>" class="btn btn-block btn-outline-secondary">
+          Delete hotel
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Hotel name
+      </dt>
+      <dd>
+        <%= @hotel.hotel_name %>
+      </dd>
+
+      <dt>
+        Hotel address
+      </dt>
+      <dd>
+        <%= @hotel.hotel_address %>
+      </dd>
+
+      <dt>
+        Hotel rating
+      </dt>
+      <dd>
+        <%= @hotel.hotel_rating %>
+      </dd>
+
+      <dt>
+        Hotel link
+      </dt>
+      <dd>
+        <%= @hotel.hotel_link %>
+      </dd>
+
+      <dt>
+        Hotel pic
+      </dt>
+      <dd>
+        <%= @hotel.hotel_pic %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@hotel.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@hotel.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+

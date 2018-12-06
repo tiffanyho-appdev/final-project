@@ -1,0 +1,82 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      All planned stays
+    </h1>
+
+    <a href="/planned_stays/new" class="btn btn-block btn-outline-secondary">
+      Add a new planned stay
+    </a>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Hotel
+        </th>
+
+        <th>
+          Day
+        </th>
+
+        <th>
+          Order in day
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @planned_stays.each do |planned_stay| %>
+      <tr>
+        <td>
+          <%= planned_stay.id %>
+        </td>
+
+        <td>
+          <%= planned_stay.hotel_id %>
+        </td>
+
+        <td>
+          <%= planned_stay.day_id %>
+        </td>
+
+        <td>
+          <%= planned_stay.order_in_day %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(planned_stay.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(planned_stay.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/planned_stays/<%= planned_stay.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

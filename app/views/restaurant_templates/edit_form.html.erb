@@ -1,0 +1,74 @@
+<h1>
+  Edit restaurant #<%= @restaurant.id %>
+</h1>
+
+<hr>
+
+<form action="/update_restaurant/<%= @restaurant.id %>" method="post">
+
+  <div class="form-group">
+    <label for="rest_name">
+      Rest name
+    </label>
+
+    <input type="text" id="rest_name" name="rest_name" class="form-control" value="<%= @restaurant.rest_name %>">
+  </div>
+
+  <div class="form-group">
+    <label for="rest_address">
+      Rest address
+    </label>
+
+    <input type="text" id="rest_address" name="rest_address" class="form-control" value="<%= @restaurant.rest_address %>">
+  </div>
+
+  <div class="form-group">
+    <label for="rest_genre">
+      Rest genre
+    </label>
+
+    <input type="text" id="rest_genre" name="rest_genre" class="form-control" value="<%= @restaurant.rest_genre %>">
+  </div>
+
+  <div class="form-group">
+    <label for="rest_rating">
+      Rest rating
+    </label>
+
+    <input type="text" id="rest_rating" name="rest_rating" class="form-control" value="<%= @restaurant.rest_rating %>">
+  </div>
+
+  <div class="form-group">
+    <label for="rest_link">
+      Rest link
+    </label>
+
+    <input type="text" id="rest_link" name="rest_link" class="form-control" value="<%= @restaurant.rest_link %>">
+  </div>
+
+  <div class="form-group">
+    <label for="rest_pic">
+      Rest pic
+    </label>
+
+    <input type="text" id="rest_pic" name="rest_pic" class="form-control" value="<%= @restaurant.rest_pic %>">
+  </div>
+
+  <div class="form-group">
+    <label for="rest_menu">
+      Rest menu
+    </label>
+
+    <input type="text" id="rest_menu" name="rest_menu" class="form-control" value="<%= @restaurant.rest_menu %>">
+  </div>
+
+  <button class="btn btn-block btn-outline-secondary">
+    Update restaurant
+  </button>
+</form>
+
+<hr>
+
+<a href="/restaurants">
+  Go back
+</a>

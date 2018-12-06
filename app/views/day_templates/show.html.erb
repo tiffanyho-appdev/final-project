@@ -1,0 +1,51 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      Day #<%= @day.id %> details
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/days" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/days/<%= @day.id %>/edit" class="btn btn-block btn-outline-secondary">
+          Edit day
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/delete_day/<%= @day.id %>" class="btn btn-block btn-outline-secondary">
+          Delete day
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Itinerary
+      </dt>
+      <dd>
+        <%= @day.itinerary_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@day.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@day.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+

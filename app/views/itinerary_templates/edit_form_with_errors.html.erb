@@ -1,0 +1,42 @@
+<% if @itinerary.errors.any? %>
+  <% @itinerary.errors.full_messages.each do |message| %>
+    <div class="alert">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<h1>
+  Edit itinerary #<%= @itinerary.id %>
+</h1>
+
+<hr>
+
+<form action="/update_itinerary/<%= @itinerary.id %>" method="post">
+
+  <div class="form-group">
+    <label for="user_id">
+      User
+    </label>
+
+    <input type="text" id="user_id" name="user_id" class="form-control" value="<%= @itinerary.user_id %>">
+  </div>
+
+  <div class="form-group">
+    <label for="name_of_trip">
+      Name of trip
+    </label>
+
+    <input type="text" id="name_of_trip" name="name_of_trip" class="form-control" value="<%= @itinerary.name_of_trip %>">
+  </div>
+
+  <button class="btn btn-block btn-outline-secondary">
+    Update itinerary
+  </button>
+</form>
+
+<hr>
+
+<a href="/itineraries">
+  Go back
+</a>

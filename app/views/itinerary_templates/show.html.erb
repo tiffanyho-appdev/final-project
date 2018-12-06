@@ -1,0 +1,83 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1 align="center">
+      <%= @itinerary.name_of_trip %>
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/places" class="btn btn-block btn-outline-secondary">
+          Add a place
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/restaurants" class="btn btn-block btn-outline-secondary">
+          Add a restaurant
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/hotels" class="btn btn-block btn-outline-secondary">
+          Add a hotel
+        </a>
+      </div>
+    </div>
+
+    <% for i in 1..@itinerary.days_in_trip.to_i do %>
+      <div><h3 align="center">
+        Day <%= i %>
+      </h3></div>
+      
+      <div><h4>Breakfast</h4></div>
+        <% PlannedMeal.where(["itinerary_id = :itinerary_id and day_id = :day_id and order_in_day = :order_in_day", {itinerary_id: @itinerary.id, day_id: i, }].each do |meal| %>
+          <% PlannedMeal.where()
+      
+      <div><h4>Morning</h4></div>
+      
+      <div><h4>Lunch</h4></div>
+      
+      <div><h4>Afternoon</h4></div>
+      
+      <div><h4>Dinner</h4></div>
+      
+      <div><h4>Evening</h4></div>
+    
+    <% end %>
+
+
+  </div>
+</div>
+
+
+
+
+    <!--<dl>-->
+    <!--  <dt>-->
+    <!--    User-->
+    <!--  </dt>-->
+    <!--  <dd>-->
+    <!--     @itinerary.user_id %>-->
+    <!--  </dd>-->
+
+    <!--  <dt>-->
+    <!--    Name of trip-->
+    <!--  </dt>-->
+    <!--  <dd>-->
+    <!--     @itinerary.name_of_trip %>-->
+    <!--  </dd>-->
+
+    <!--  <dt>-->
+    <!--    Created at-->
+    <!--  </dt>-->
+    <!--  <dd>-->
+    <!--     time_ago_in_words(@itinerary.created_at) %> ago-->
+    <!--  </dd>-->
+
+    <!--  <dt>-->
+    <!--    Updated at-->
+    <!--  </dt>-->
+    <!--  <dd>-->
+    <!--     time_ago_in_words(@itinerary.updated_at) %> ago-->
+    <!--  </dd>-->
+    <!--</dl>-->

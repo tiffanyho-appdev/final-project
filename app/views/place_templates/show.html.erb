@@ -1,0 +1,86 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      Place #<%= @place.id %> details
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/places" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/places/<%= @place.id %>/edit" class="btn btn-block btn-outline-secondary">
+          Edit place
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/delete_place/<%= @place.id %>" class="btn btn-block btn-outline-secondary">
+          Delete place
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Place name
+      </dt>
+      <dd>
+        <%= @place.place_name %>
+      </dd>
+
+      <dt>
+        Place address
+      </dt>
+      <dd>
+        <%= @place.place_address %>
+      </dd>
+
+      <dt>
+        Place description
+      </dt>
+      <dd>
+        <%= @place.place_description %>
+      </dd>
+
+      <dt>
+        Place rating
+      </dt>
+      <dd>
+        <%= @place.place_rating %>
+      </dd>
+
+      <dt>
+        Place link
+      </dt>
+      <dd>
+        <%= @place.place_link %>
+      </dd>
+
+      <dt>
+        Place pic
+      </dt>
+      <dd>
+        <%= @place.place_pic %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@place.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@place.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+

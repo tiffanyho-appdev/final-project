@@ -1,0 +1,98 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      All hotels
+    </h1>
+
+    <a href="/hotels/new" class="btn btn-block btn-outline-secondary">
+      Add a new hotel
+    </a>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Hotel name
+        </th>
+
+        <th>
+          Hotel address
+        </th>
+
+        <th>
+          Hotel rating
+        </th>
+
+        <th>
+          Hotel link
+        </th>
+
+        <th>
+          Hotel pic
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @hotels.each do |hotel| %>
+      <tr>
+        <td>
+          <%= hotel.id %>
+        </td>
+
+        <td>
+          <%= hotel.hotel_name %>
+        </td>
+
+        <td>
+          <%= hotel.hotel_address %>
+        </td>
+
+        <td>
+          <%= hotel.hotel_rating %>
+        </td>
+
+        <td>
+          <%= hotel.hotel_link %>
+        </td>
+
+        <td>
+          <%= hotel.hotel_pic %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(hotel.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(hotel.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/hotels/<%= hotel.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

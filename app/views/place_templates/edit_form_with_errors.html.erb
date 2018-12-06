@@ -1,0 +1,74 @@
+<% if @place.errors.any? %>
+  <% @place.errors.full_messages.each do |message| %>
+    <div class="alert">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<h1>
+  Edit place #<%= @place.id %>
+</h1>
+
+<hr>
+
+<form action="/update_place/<%= @place.id %>" method="post">
+
+  <div class="form-group">
+    <label for="place_name">
+      Place name
+    </label>
+
+    <input type="text" id="place_name" name="place_name" class="form-control" value="<%= @place.place_name %>">
+  </div>
+
+  <div class="form-group">
+    <label for="place_address">
+      Place address
+    </label>
+
+    <input type="text" id="place_address" name="place_address" class="form-control" value="<%= @place.place_address %>">
+  </div>
+
+  <div class="form-group">
+    <label for="place_description">
+      Place description
+    </label>
+
+    <input type="text" id="place_description" name="place_description" class="form-control" value="<%= @place.place_description %>">
+  </div>
+
+  <div class="form-group">
+    <label for="place_rating">
+      Place rating
+    </label>
+
+    <input type="text" id="place_rating" name="place_rating" class="form-control" value="<%= @place.place_rating %>">
+  </div>
+
+  <div class="form-group">
+    <label for="place_link">
+      Place link
+    </label>
+
+    <input type="text" id="place_link" name="place_link" class="form-control" value="<%= @place.place_link %>">
+  </div>
+
+  <div class="form-group">
+    <label for="place_pic">
+      Place pic
+    </label>
+
+    <input type="text" id="place_pic" name="place_pic" class="form-control" value="<%= @place.place_pic %>">
+  </div>
+
+  <button class="btn btn-block btn-outline-secondary">
+    Update place
+  </button>
+</form>
+
+<hr>
+
+<a href="/places">
+  Go back
+</a>

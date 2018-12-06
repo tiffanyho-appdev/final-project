@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221161615) do
+ActiveRecord::Schema.define(version: 20181206214622) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -41,6 +41,95 @@ ActiveRecord::Schema.define(version: 20180221161615) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "days", force: :cascade do |t|
+    t.integer "itinerary_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order_in_itinerary"
+  end
+
+  create_table "hotels", force: :cascade do |t|
+    t.string "hotel_name"
+    t.string "hotel_address"
+    t.float "hotel_rating"
+    t.string "hotel_link"
+    t.string "hotel_pic"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "itineraries", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name_of_trip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "days_in_trip"
+    t.string "location_of_trip"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "place_name"
+    t.string "place_address"
+    t.string "place_description"
+    t.float "place_rating"
+    t.string "place_link"
+    t.string "place_pic"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "planned_funs", force: :cascade do |t|
+    t.integer "place_id"
+    t.integer "day_id"
+    t.integer "order_in_day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "itinerary_id"
+  end
+
+  create_table "planned_meals", force: :cascade do |t|
+    t.integer "rest_id"
+    t.integer "day_id"
+    t.integer "order_in_day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "itinerary_id"
+  end
+
+  create_table "planned_stays", force: :cascade do |t|
+    t.integer "hotel_id"
+    t.integer "day_id"
+    t.integer "order_in_day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "itinerary_id"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "rest_name"
+    t.string "rest_address"
+    t.string "rest_genre"
+    t.float "rest_rating"
+    t.string "rest_link"
+    t.string "rest_pic"
+    t.string "rest_menu"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

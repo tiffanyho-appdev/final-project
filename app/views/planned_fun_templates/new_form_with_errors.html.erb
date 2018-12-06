@@ -1,0 +1,54 @@
+<!-- Validation failure messages -->
+<% if @planned_fun.present? %>
+  <% if @planned_fun.errors.any? %>
+    <% @planned_fun.errors.full_messages.each do |message| %>
+      <div class="alert alert-danger">
+        <%= message %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<h1>
+  Add a new planned fun
+</h1>
+
+
+<hr>
+
+<form action="/create_planned_fun" method="post">
+
+  <div class="form-group">
+    <label for="place_id">
+      Place
+    </label>
+
+    <input type="text" id="place_id" name="place_id" class="form-control" value="<%= @planned_fun.place_id %>">
+  </div>
+
+  <div class="form-group">
+    <label for="day_id">
+      Day
+    </label>
+
+    <input type="text" id="day_id" name="day_id" class="form-control" value="<%= @planned_fun.day_id %>">
+  </div>
+
+  <div class="form-group">
+    <label for="order_in_day">
+      Order in day
+    </label>
+
+    <input type="text" id="order_in_day" name="order_in_day" class="form-control" value="<%= @planned_fun.order_in_day %>">
+  </div>
+
+  <button class="btn btn-block btn-outline-secondary">
+    Create planned fun
+  </button>
+</form>
+
+<hr>
+
+<a href="/planned_funs">
+  Go back
+</a>

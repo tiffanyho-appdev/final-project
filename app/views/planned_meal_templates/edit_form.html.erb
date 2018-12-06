@@ -1,0 +1,42 @@
+<h1>
+  Edit planned meal #<%= @planned_meal.id %>
+</h1>
+
+<hr>
+
+<form action="/update_planned_meal/<%= @planned_meal.id %>" method="post">
+
+  <div class="form-group">
+    <label for="rest_id">
+      Rest
+    </label>
+
+    <input type="text" id="rest_id" name="rest_id" class="form-control" value="<%= @planned_meal.rest_id %>">
+  </div>
+
+  <div class="form-group">
+    <label for="day_id">
+      Day
+    </label>
+
+    <input type="text" id="day_id" name="day_id" class="form-control" value="<%= @planned_meal.day_id %>">
+  </div>
+
+  <div class="form-group">
+    <label for="order_in_day">
+      Order in day
+    </label>
+
+    <input type="text" id="order_in_day" name="order_in_day" class="form-control" value="<%= @planned_meal.order_in_day %>">
+  </div>
+
+  <button class="btn btn-block btn-outline-secondary">
+    Update planned meal
+  </button>
+</form>
+
+<hr>
+
+<a href="/planned_meals">
+  Go back
+</a>

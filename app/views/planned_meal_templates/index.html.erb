@@ -1,0 +1,82 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      All planned meals
+    </h1>
+
+    <a href="/planned_meals/new" class="btn btn-block btn-outline-secondary">
+      Add a new planned meal
+    </a>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Rest
+        </th>
+
+        <th>
+          Day
+        </th>
+
+        <th>
+          Order in day
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @planned_meals.each do |planned_meal| %>
+      <tr>
+        <td>
+          <%= planned_meal.id %>
+        </td>
+
+        <td>
+          <%= planned_meal.rest_id %>
+        </td>
+
+        <td>
+          <%= planned_meal.day_id %>
+        </td>
+
+        <td>
+          <%= planned_meal.order_in_day %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(planned_meal.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(planned_meal.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/planned_meals/<%= planned_meal.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

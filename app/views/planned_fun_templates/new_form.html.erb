@@ -1,0 +1,72 @@
+<h1>
+  Add a new planned fun
+</h1>
+
+
+<hr>
+
+<form action="/create_planned_fun" method="post">
+
+
+
+    <% @query_string = %>
+
+
+
+    <div class="form-group">
+      <input type="hidden" name="location_of_trip" value="@location_of_trip">
+    </div>
+    
+    <div class="form-group">
+      <input type="hidden" name="day_id" value="1">
+    </div>
+    
+    <div class="form-group">
+      <input type="hidden" name="rest_id" value="@location_of_trip">
+    </div>
+    
+    <div class="form-group">
+      <input type="hidden" name="order_in_day" value="1">
+    </div>
+    
+    
+    
+    <button class="btn btn-block btn-outline-secondary">
+      Add event to itinerary
+    </button>
+    
+
+  <!--<div class="form-group">-->
+  <!--  <label for="place_id">-->
+  <!--    Place-->
+  <!--  </label>-->
+
+  <!--  <input type="text" id="place_id" name="place_id" class="form-control">-->
+  <!--</div>-->
+
+  <!--<div class="form-group">-->
+  <!--  <label for="day_id">-->
+  <!--    Day-->
+  <!--  </label>-->
+
+  <!--  <input type="text" id="day_id" name="day_id" class="form-control">-->
+  <!--</div>-->
+
+  <!--<div class="form-group">-->
+  <!--  <label for="order_in_day">-->
+  <!--    Order in day-->
+  <!--  </label>-->
+
+  <!--  <input type="text" id="order_in_day" name="order_in_day" class="form-control">-->
+  <!--</div>-->
+
+  <!--<button class="btn btn-block btn-outline-secondary">-->
+  <!--  Create planned fun-->
+  <!--</button>-->
+</form>
+
+<hr>
+
+<a href="/planned_funs">
+  Go back
+</a>

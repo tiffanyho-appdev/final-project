@@ -1,0 +1,74 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      All itineraries
+    </h1>
+
+    <a href="/itineraries/new" class="btn btn-block btn-outline-secondary">
+      Add a new itinerary
+    </a>
+  </div>
+</div>
+
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Name of trip
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @itineraries.each do |itinerary| %>
+      <tr>
+        <td>
+          <%= itinerary.id %>
+        </td>
+
+        <td>
+          <%= itinerary.user_id %>
+        </td>
+
+        <td>
+          <%= itinerary.name_of_trip %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(itinerary.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(itinerary.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/itineraries/<%= itinerary.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
