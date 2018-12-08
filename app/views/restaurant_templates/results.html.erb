@@ -1,0 +1,53 @@
+<div class="row mb-5">
+  <div class="col-md-15"> ## offset-md-2
+    <h1 align="center">
+      Restaurants near <%= @location %>
+    </h1>
+
+    <div class="row mb-1">
+      <div class="col">
+        <a href="/restaurants" class="btn btn-block btn-outline-secondary">
+          New search
+        </a>
+      </div>
+    </div>
+    <hr>
+    <div class="card-columns">
+    <% for i in 1..@parsed_data.dig('businesses').count do %>
+      
+      <!--Define variables to pass through if add to itinerary-->
+      <% @image_url = @parsed_data.dig('businesses', i, 'image_url') %>
+      <% @name = @parsed_data.dig('businesses', i, 'name') %>
+      <% @address = @parsed_data.dig('businesses', i, 'location', 'address1') %>
+      <% @city = @parsed_data.dig('businesses', i, 'location', 'city') %>
+      <% @state = @parsed_data.dig('businesses', i, 'location', 'state') %>
+      <% @zip = @parsed_data.dig('businesses', i, 'location', 'zip_code') %>
+      <% @rating = @parsed_data.dig('businesses', i, 'rating') %>
+      <% @category = @parsed_data.dig('businesses', i, 'categories', 0, 'title') %>
+      <% @link = @parsed_data.dig('businesses', i, 'url') %>
+      
+      <div class="card" style="width: 400px">
+        <img class="card-img-top" src="<%= @image_url %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= @name %></h5>
+          <p class="card-text"><%= @address %></p>
+          <%= @city.to_s + ", " + @state.to_s + " " + @zip.to_s %>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class="badge badge-secondary">Rating</span> <%= @rating %> / 5.0</li>
+          <li class="list-group-item"><span class="badge badge-secondary">Category</span> <%= @category %></li>
+        </ul>
+        <div class="card-body">
+          <a href="<%= @link %>" class="card-link">View details</a>
+          <a href="/planned_meal/new" class="card-link">Add to Itinerary</a>
+        </div>
+      </div>
+      
+      <% %>
+    
+    <% end %>
+
+    </div>
+  </div>
+</div>
+

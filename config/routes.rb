@@ -3,24 +3,6 @@ Rails.application.routes.draw do
   get("/", { :controller => "odyssey", :action => "index" })
 
   #------------------------------
-  # Routes for the Day resource:
-
-  # CREATE
-  get("/days/new", { :controller => "days", :action => "new_form" })
-  post("/create_day", { :controller => "days", :action => "create_row" })
-
-  # READ
-  get("/days", { :controller => "days", :action => "index" })
-  get("/days/:id_to_display", { :controller => "days", :action => "show" })
-
-  # UPDATE
-  get("/days/:prefill_with_id/edit", { :controller => "days", :action => "edit_form" })
-  post("/update_day/:id_to_modify", { :controller => "days", :action => "update_row" })
-
-  # DELETE
-  get("/delete_day/:id_to_remove", { :controller => "days", :action => "destroy_row" })
-
-  #------------------------------
 
   # Routes for the Planned fun resource:
 
@@ -101,12 +83,12 @@ Rails.application.routes.draw do
   # Routes for the Restaurant resource:
 
   # CREATE
-  get("/restaurants/new", { :controller => "restaurants", :action => "new_form" })
-  post("/create_restaurant", { :controller => "restaurants", :action => "create_row" })
+  # get("/restaurants/new", { :controller => "restaurants", :action => "new_form" })
+  # post("/create_restaurant", { :controller => "restaurants", :action => "create_row" })
 
   # READ
   get("/restaurants", { :controller => "restaurants", :action => "index" })
-  get("/restaurants/:id_to_display", { :controller => "restaurants", :action => "show" })
+  get("/restaurants/results", { :controller => "restaurants", :action => "results" })
 
   # UPDATE
   get("/restaurants/:prefill_with_id/edit", { :controller => "restaurants", :action => "edit_form" })

@@ -1,114 +1,133 @@
 <div class="row mb-3">
   <div class="col-md-12">
     <h1>
-      All restaurants
+      Explore restaurants
     </h1>
 
-    <a href="/restaurants/new" class="btn btn-block btn-outline-secondary">
-      Add a new restaurant
-    </a>
+    <form action="/restaurants/results.html">
+      <div class="form-group">
+          <label for="location">Where are you going?</label>
+          <input type="text"  class="form-control" placeholder="Ex: Chicago, Honolulu, San Francisco" value="<%= @location %>" name="location" id="location">
+        <br>
+          <label for="term">Which meal are you looking for?</label>
+            <select class="form-control" id="term" name="term">
+              <option>Breakfast</option>
+              <option>Lunch</option>
+              <option>Dinner</option>
+              <option>Dessert</option>
+              <option>Snack</option>
+            </select>
+      </div>
+  </div>
+
+      <button class="btn btn-outline-secondary btn-block">
+        Find some restaurants!
+      </button>
+    </form>
+    
+
   </div>
 </div>
 
 
 <hr>
 
-<div class="row mb-3">
-  <div class="col-md-12">
-    <table class="table">
-      <tr>
-        <th>
-          ID
-        </th>
+<!--<div class="row mb-3">-->
+<!--  <div class="col-md-12">-->
+<!--    <table class="table">-->
+<!--      <tr>-->
+<!--        <th>-->
+<!--          ID-->
+<!--        </th>-->
 
-        <th>
-          Rest name
-        </th>
+<!--        <th>-->
+<!--          Rest name-->
+<!--        </th>-->
 
-        <th>
-          Rest address
-        </th>
+<!--        <th>-->
+<!--          Rest address-->
+<!--        </th>-->
 
-        <th>
-          Rest genre
-        </th>
+<!--        <th>-->
+<!--          Rest genre-->
+<!--        </th>-->
 
-        <th>
-          Rest rating
-        </th>
+<!--        <th>-->
+<!--          Rest rating-->
+<!--        </th>-->
 
-        <th>
-          Rest link
-        </th>
+<!--        <th>-->
+<!--          Rest link-->
+<!--        </th>-->
 
-        <th>
-          Rest pic
-        </th>
+<!--        <th>-->
+<!--          Rest pic-->
+<!--        </th>-->
 
-        <th>
-          Rest menu
-        </th>
+<!--        <th>-->
+<!--          Rest menu-->
+<!--        </th>-->
 
-        <th>
-          Created at
-        </th>
+<!--        <th>-->
+<!--          Created at-->
+<!--        </th>-->
 
-        <th>
-          Updated at
-        </th>
+<!--        <th>-->
+<!--          Updated at-->
+<!--        </th>-->
 
-        <th>
-        </th>
-      </tr>
+<!--        <th>-->
+<!--        </th>-->
+<!--      </tr>-->
 
-      <% @restaurants.each do |restaurant| %>
-      <tr>
-        <td>
-          <%= restaurant.id %>
-        </td>
+<!--      @restaurants.each do |restaurant| %>-->
+<!--      <tr>-->
+<!--        <td>-->
+<!--          restaurant.id %>-->
+<!--        </td>-->
 
-        <td>
-          <%= restaurant.rest_name %>
-        </td>
+<!--        <td>-->
+<!--          restaurant.rest_name %>-->
+<!--        </td>-->
 
-        <td>
-          <%= restaurant.rest_address %>
-        </td>
+<!--        <td>-->
+<!--          restaurant.rest_address %>-->
+<!--        </td>-->
 
-        <td>
-          <%= restaurant.rest_genre %>
-        </td>
+<!--        <td>-->
+<!--          restaurant.rest_genre %>-->
+<!--        </td>-->
 
-        <td>
-          <%= restaurant.rest_rating %>
-        </td>
+<!--        <td>-->
+<!--          restaurant.rest_rating %>-->
+<!--        </td>-->
 
-        <td>
-          <%= restaurant.rest_link %>
-        </td>
+<!--        <td>-->
+<!--          restaurant.rest_link %>-->
+<!--        </td>-->
 
-        <td>
-          <%= restaurant.rest_pic %>
-        </td>
+<!--        <td>-->
+<!--         restaurant.rest_pic %>-->
+<!--        </td>-->
 
-        <td>
-          <%= restaurant.rest_menu %>
-        </td>
+<!--        <td>-->
+<!--          restaurant.rest_menu %>-->
+<!--        </td>-->
 
-        <td>
-          <%= time_ago_in_words(restaurant.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(restaurant.updated_at) %> ago
-        </td>
+<!--        <td>-->
+<!--           time_ago_in_words(restaurant.created_at) %> ago-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          time_ago_in_words(restaurant.updated_at) %> ago-->
+<!--        </td>-->
 
-        <td>
-          <a href="/restaurants/<%= restaurant.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-</div>
+<!--        <td>-->
+<!--          <a href="/restaurants restaurant.id %>">-->
+<!--            Show details-->
+<!--          </a>-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--       end %>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->

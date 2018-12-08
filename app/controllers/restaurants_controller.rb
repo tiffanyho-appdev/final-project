@@ -1,22 +1,29 @@
-class RestaurantsController 
+class RestaurantsController < ApplicationController
   def index
-    
-    @restaurants = Restaurant.all
-
+    if(params.has_key?(:location))
+      @location = params.fetch("location")
+    end
     render("restaurant_templates/index.html.erb")
   end
 
-  def show
-    @restaurant = Restaurant.find(params.fetch("id_to_display"))
+  def results
+    api_auth_header = { 'Authorization' => 'Bearer ' + ENV.fetch('YELP_API_KEY') }
+    base_url = 'https://api.yelp.com/v3/businesses/search'
+    @location = params.fetch("location")
+    @term = params.fetch("term")
+    query_string = '?term=' + @term + '&' + 'location=' + @location
 
-    render("restaurant_templates/show.html.erb")
+    api_response = HTTParty.get(base_url + query_string, headers: api_auth_header)
+    @parsed_data = JSON.parse(api_response.body)
+    
+    render("restaurant_templates/results.html.erb")
   end
 
-  def new_form
-    @restaurant = Restaurant.new
+  # def new_form
+  #   @restaurant = Restaurant.new
 
-    render("restaurant_templates/new_form.html.erb")
-  end
+  #   render("restaurant_templates/new_form.html.erb")
+  # end
 
   def create_row
     @restaurant = Restaurant.new

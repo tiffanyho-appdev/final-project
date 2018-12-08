@@ -2,23 +2,24 @@
   <div class="col-md-8 offset-md-2">
     <h1 align="center">
       <%= @itinerary.name_of_trip %>
+      <% @location = @itinerary.location_of_trip %>
     </h1>
 
     <div class="row mb-3">
       <div class="col">
-        <a href="/places" class="btn btn-block btn-outline-secondary">
+        <a href="/places?location=<%= @itinerary.location_of_trip %>"" class="btn btn-block btn-outline-secondary">
           Add a place
         </a>
       </div>
 
       <div class="col">
-        <a href="/restaurants" class="btn btn-block btn-outline-secondary">
+        <a href="/restaurants?location=<%= @itinerary.location_of_trip %>" class="btn btn-block btn-outline-secondary">
           Add a restaurant
         </a>
       </div>
 
       <div class="col">
-        <a href="/hotels" class="btn btn-block btn-outline-secondary">
+        <a href="/hotels?location=<%= @itinerary.location_of_trip %>" class="btn btn-block btn-outline-secondary">
           Add a hotel
         </a>
       </div>
@@ -30,8 +31,23 @@
       </h3></div>
       
       <div><h4>Breakfast</h4></div>
-        <% PlannedMeal.where(["itinerary_id = :itinerary_id and day_id = :day_id and order_in_day = :order_in_day", {itinerary_id: @itinerary.id, day_id: i, }].each do |meal| %>
-          <% PlannedMeal.where()
+        <% PlannedMeal.where(itinerary_id: @itinerary.id, order_in_day: "breakfast", day_id: i).each do |meal| %> 
+          <% @restaurant = Restaurant.where(id: meal.rest_id) %>
+          <div class="card">
+            <img class="card-img-top" src="<%= @restaurant.rest_pic %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= @restaurant.rest_name %></h5>
+              <p class="card-text"><%= @restaurant.rest_address %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><%= @restaurant.rest_genre %></li>
+              <li class="list-group-item"><%= @restaurant.rest_rating %></li>
+            </ul>
+            <div class="card-body">
+              <a href="<%= @restaurant.rest_link %>" class="card-link">View details</a>
+            </div>
+          </div>
+          <% end %>
       
       <div><h4>Morning</h4></div>
       
@@ -45,39 +61,5 @@
     
     <% end %>
 
-
   </div>
 </div>
-
-
-
-
-    <!--<dl>-->
-    <!--  <dt>-->
-    <!--    User-->
-    <!--  </dt>-->
-    <!--  <dd>-->
-    <!--     @itinerary.user_id %>-->
-    <!--  </dd>-->
-
-    <!--  <dt>-->
-    <!--    Name of trip-->
-    <!--  </dt>-->
-    <!--  <dd>-->
-    <!--     @itinerary.name_of_trip %>-->
-    <!--  </dd>-->
-
-    <!--  <dt>-->
-    <!--    Created at-->
-    <!--  </dt>-->
-    <!--  <dd>-->
-    <!--     time_ago_in_words(@itinerary.created_at) %> ago-->
-    <!--  </dd>-->
-
-    <!--  <dt>-->
-    <!--    Updated at-->
-    <!--  </dt>-->
-    <!--  <dd>-->
-    <!--     time_ago_in_words(@itinerary.updated_at) %> ago-->
-    <!--  </dd>-->
-    <!--</dl>-->
