@@ -24,7 +24,10 @@ class ItinerariesController < ApplicationController
     @itinerary.location_of_trip = params.fetch("location_of_trip")
     @itinerary.days_in_trip = params.fetch("days_in_trip")
 
-    if @itinerary.valid?
+    if @itinerary.days_in_trip == 0
+      flash[:notice] = 'Please input an integer number of days.'
+      redirect_back fallback_location: 'itineraries/new'
+    elsif @itinerary.valid?
       @itinerary.save
       
       flash.now[:notice] = "Itinerary created successfully. Now you can start adding things to " + @itinerary.name_of_trip + "!"
