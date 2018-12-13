@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # CREATE
   get("/planned_funs/new", { :controller => "planned_funs", :action => "new_form" })
-  post("/create_planned_fun", { :controller => "planned_funs", :action => "create_row" })
+  get("/create_planned_fun", { :controller => "planned_funs", :action => "create_row" })
 
   # READ
   get("/planned_funs", { :controller => "planned_funs", :action => "index" })
@@ -26,8 +26,8 @@ Rails.application.routes.draw do
   # Routes for the Planned meal resource:
 
   # CREATE
-  get("/planned_meals/new", { :controller => "planned_meals", :action => "new_form" })
-  post("/create_planned_meal", { :controller => "planned_meals", :action => "create_row" })
+  # get("/planned_meals/new", { :controller => "planned_meals", :action => "new_form" })
+  get("/create_planned_meal", { :controller => "planned_meals", :action => "create_row" })
 
   # READ
   get("/planned_meals", { :controller => "planned_meals", :action => "index" })
@@ -107,7 +107,7 @@ Rails.application.routes.draw do
 
   # READ
   get("/places", { :controller => "places", :action => "index" })
-  get("/places/:id_to_display", { :controller => "places", :action => "show" })
+  get("/places/results", { :controller => "places", :action => "results" })
 
   # UPDATE
   get("/places/:prefill_with_id/edit", { :controller => "places", :action => "edit_form" })

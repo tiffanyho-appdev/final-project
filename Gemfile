@@ -7,6 +7,9 @@ end
 
 gem "figaro"
 gem "httparty"
+
+
+
 gem "activeadmin"
 gem "devise"
 gem "jbuilder", "~> 2.5"

@@ -11,25 +11,27 @@ class PlannedMealsController < ApplicationController
     render("planned_meal_templates/show.html.erb")
   end
 
-  def new_form
-    @planned_meal = PlannedMeal.new
+  # def new_form
+  #   @planned_meal = PlannedMeal.new
 
-    render("planned_meal_templates/new_form.html.erb")
-  end
+  #   render("planned_meal_templates/new_form.html.erb")
+  # end
 
   def create_row
     @planned_meal = PlannedMeal.new
 
-    @planned_meal.rest_id = params.fetch("rest_id")
-    @planned_meal.day_id = params.fetch("day_id")
+    @planned_meal.rest_id = params.fetch("yelpid")
+    @planned_meal.day_id = params.fetch("day")
     @planned_meal.order_in_day = params.fetch("order_in_day")
+    @planned_meal.itinerary_id = params.fetch("itinerary_id")
 
-    if @planned_meal.valid?
+    
+    if @planned_meal.day_id > Itinerary.where(id: @planned_meal.itinerary_id).first.days_in_trip.to_i
+      flash[:notice] = 'That day does not exist in this itinerary. Please select an appropriate date'
+      redirect_back fallback_location: 'restaurants/results.html?itinerary_id=' + @planned_meal.itinerary_id.to_s
+    elsif @planned_meal.valid?
       @planned_meal.save
-
-      redirect_back(:fallback_location => "/planned_meals", :notice => "Planned meal created successfully.")
-    else
-      render("planned_meal_templates/new_form_with_errors.html.erb")
+      redirect_to("/itineraries/"+ @planned_meal.itinerary_id.to_s, :notice => "Planned meal created successfully.")
     end
   end
 
@@ -60,6 +62,6 @@ class PlannedMealsController < ApplicationController
 
     @planned_meal.destroy
 
-    redirect_to("/planned_meals", :notice => "Planned meal deleted successfully.")
+    redirect_to("/itineraries/" + @planned_meal.itinerary_id.to_s, :notice => "Planned meal deleted successfully.")
   end
 end

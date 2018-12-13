@@ -1,58 +1,47 @@
 <div class="row mb-3">
-  <div class="col-md-12">
-    <h1>
-      All itineraries
-    </h1>
-
-    <a href="/itineraries/new" class="btn btn-block btn-outline-secondary">
-      Add a new itinerary
-    </a>
+  <div class="col-md-12"> 
+    <div class="jumbotron" style="background:transparent !important" height="300px">
+      <h1 class="display-5" align="center">
+        <font color="white">My Itineraries
+      </h1>
+      <p class="lead" align="center">A collection of planned and completed travel</p></font>
+    
+    <p align="center">
+      <a href="/itineraries/new" class="btn btn-lg btn-secondary center">
+        Add a new itinerary
+      </a>
+    </p>
   </div>
 </div>
 
-
+<body background="https://images.pexels.com/photos/314380/pexels-photo-314380.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" bgproperties="fixed"> 
 <hr>
 
-<div class="row mb-3">
+<div class="mx-auto">
   <div class="col-md-12">
-    <table class="table">
-      <tr>
-        <th>
-          ID
-        </th>
+    <table class="table table-hover table-light center">
+      
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Name of trip</th>
+          <th scope="col">Trip location</th>
+          <th scope="col">Created on</th>
+          <th scope="col">Updated on</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
 
-        <th>
-          User
-        </th>
-
-        <th>
-          Name of trip
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
-      </tr>
 
       <% @itineraries.each do |itinerary| %>
       <tr>
-        <td>
-          <%= itinerary.id %>
-        </td>
-
-        <td>
-          <%= itinerary.user_id %>
-        </td>
-
+        
         <td>
           <%= itinerary.name_of_trip %>
+        </td>
+
+        <td>
+          <%= itinerary.location_of_trip %>
         </td>
 
         <td>
@@ -64,8 +53,35 @@
 
         <td>
           <a href="/itineraries/<%= itinerary.id %>">
-            Show details
+            Edit
           </a>
+        </td>
+        <td>
+          <a href="/delete_itinerary/<%= itinerary.id %>" data-toggle="modal" data-target="#modalDelete">
+            Delete
+          </a>
+          
+          <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
+              <div class="modal-dialog" role="dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Are you sure?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>You are about to delete this itinerary.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-danger"><a href="/delete_itinerary/<%= itinerary.id %>"><font color="white">Delete</font></a></button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
         </td>
       </tr>
       <% end %>

@@ -13,9 +13,5 @@
 
 class Itinerary < ApplicationRecord
     belongs_to :user
-    has_many :days, :dependent => :destroy
 
-    has_many :hotels, :through => :days, :source => :hotel
-    has_many :rests, :through => :days, :source => :rests
-    has_many :places, :through => :days, :source => :places
 end

@@ -1,7 +1,6 @@
 class ItinerariesController < ApplicationController
   def index
-    @itineraries = Itinerary.all
-
+    @itineraries = Itinerary.where(user_id: current_user.id).all
     render("itinerary_templates/index.html.erb")
   end
 

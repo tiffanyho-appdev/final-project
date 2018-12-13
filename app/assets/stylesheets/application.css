@@ -12,3 +12,17 @@
  *
  *= require_self
  */
+
+img {
+    object-fit: cover;
+}
+
+.layout-container {
+  margin: auto;
+  width: 1111px;
+}
+
+.label{
+    height:60px;
+    width:368px;
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181206214622) do
+ActiveRecord::Schema.define(version: 20181213040453) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -81,18 +81,18 @@ ActiveRecord::Schema.define(version: 20181206214622) do
   end
 
   create_table "planned_funs", force: :cascade do |t|
-    t.integer "place_id"
+    t.string "place_id"
     t.integer "day_id"
-    t.integer "order_in_day"
+    t.string "order_in_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "itinerary_id"
   end
 
   create_table "planned_meals", force: :cascade do |t|
-    t.integer "rest_id"
+    t.string "rest_id"
     t.integer "day_id"
-    t.integer "order_in_day"
+    t.string "order_in_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "itinerary_id"

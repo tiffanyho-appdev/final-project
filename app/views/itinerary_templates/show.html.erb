@@ -1,64 +1,289 @@
-<div class="row mb-3">
-  <div class="col-md-8 offset-md-2">
-    <h1 align="center">
-      <%= @itinerary.name_of_trip %>
-      <% @location = @itinerary.location_of_trip %>
-    </h1>
+<div >
+  <div>
+    <div class="jumbotron">
+      <h1 class="display-3" align="left">
+        <%= @itinerary.name_of_trip %>
+        <% @location = @itinerary.location_of_trip %>
+      </h1>
+      
+      <p class="lead">Let's get started and build your itinerary together!</p>
 
-    <div class="row mb-3">
-      <div class="col">
-        <a href="/places?location=<%= @itinerary.location_of_trip %>"" class="btn btn-block btn-outline-secondary">
-          Add a place
-        </a>
-      </div>
-
-      <div class="col">
-        <a href="/restaurants?location=<%= @itinerary.location_of_trip %>" class="btn btn-block btn-outline-secondary">
-          Add a restaurant
-        </a>
-      </div>
-
-      <div class="col">
-        <a href="/hotels?location=<%= @itinerary.location_of_trip %>" class="btn btn-block btn-outline-secondary">
-          Add a hotel
-        </a>
+      <hr class="my-4">
+      
+      <div class="row mb-2">
+        <div class="col">
+          <a href="/places?location=<%= @itinerary.location_of_trip %>&itinerary_id=<%= @itinerary.id %>" class="btn btn-block btn-primary btn-lg">
+            Add a place
+          </a>
+        </div>
+  
+        <div class="col">
+          <a href="/restaurants?location=<%= @itinerary.location_of_trip %>&itinerary_id=<%= @itinerary.id %>" class="btn btn-block btn-primary btn-lg">
+            Add a restaurant
+          </a>
+        </div>
+  
       </div>
     </div>
 
     <% for i in 1..@itinerary.days_in_trip.to_i do %>
-      <div><h3 align="center">
-        Day <%= i %>
-      </h3></div>
       
-      <div><h4>Breakfast</h4></div>
-        <% PlannedMeal.where(itinerary_id: @itinerary.id, order_in_day: "breakfast", day_id: i).each do |meal| %> 
-          <% @restaurant = Restaurant.where(id: meal.rest_id) %>
-          <div class="card">
-            <img class="card-img-top" src="<%= @restaurant.rest_pic %>">
-            <div class="card-body">
-              <h5 class="card-title"><%= @restaurant.rest_name %></h5>
-              <p class="card-text"><%= @restaurant.rest_address %></p>
+      <div class="card bg-light mb-3" >
+      
+      <div>
+        <button type="button" class="btn btn-primary disabled btn-lg btn-block">
+          <h3 align="center">
+            Day <%= i %>
+          </h3>
+        </button>
+      </div>
+      
+      <!--Body of page looping through each day-->
+      <table class="layout-container">
+        
+      <tr>
+        <!--BREAKFAST-->
+        <td colspan="2" valign="top">
+        <p><div><h2 align="center"><button type="button" class="btn btn-secondary btn-lg btn-block disabled label">Breakfast</button></h2></div></p>
+          <% PlannedMeal.where(itinerary_id: @itinerary.id, order_in_day: "Breakfast", day_id: i).each do |meal| %> 
+            <% api_auth_header = { 'Authorization' => 'Bearer ' + ENV.fetch('YELP_API_KEY') } %>
+            <% base_url = 'https://api.yelp.com/v3/businesses/' %>
+            <% search_id = meal.rest_id %>
+            <% api_response = HTTParty.get(base_url + search_id, headers: api_auth_header) %>
+            <% @parsed_data = JSON.parse(api_response.body) %>
+            
+            <% @yelpid = @parsed_data.dig('id') %>
+            <% @image_url = @parsed_data.dig('image_url') %>
+            <% @name = @parsed_data.dig('name') %>
+            <% @address = @parsed_data.dig('location', 'address1') %>
+            <% @city = @parsed_data.dig('location', 'city') %>
+            <% @state = @parsed_data.dig('location', 'state') %>
+            <% @zip = @parsed_data.dig('location', 'zip_code') %>
+            <% @rating = @parsed_data.dig('rating') %>
+            <% @category = @parsed_data.dig('categories', 0, 'title') %>
+            <% @link = @parsed_data.dig('url') %>
+            
+            <div class="row justify-content-center align-items-center">
+            <div class="card border-secondary mb-3" style="width: 300px">
+              <img class="card-img-top centered-and-cropped" width="400" height="300" src="<%= @image_url %>">
+              <div class="card-body">
+                <h5 class="card-title"><a href="<%= @link %>"><%= @name %></a></h5>
+                <p class="card-text"><%= @address %></p>
+                <%= @city.to_s + ", " + @state.to_s + " " + @zip.to_s %>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="badge badge-secondary">Category</span>  <%= @category %></li>
+                <li class="list-group-item"><span class="badge badge-secondary">Rating</span>  <%= @rating %> / 5.0</li>
+                <li class="list-group-item"><a class="btn btn-danger btn-sm" href="/delete_planned_meal/<%= meal.id %>" role="button">Remove meal</a></li>
+              </ul>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"><%= @restaurant.rest_genre %></li>
-              <li class="list-group-item"><%= @restaurant.rest_rating %></li>
-            </ul>
-            <div class="card-body">
-              <a href="<%= @restaurant.rest_link %>" class="card-link">View details</a>
             </div>
-          </div>
+            <% end %>
+        </td>
+        
+        <!--LUNCH-->
+        <td colspan="2" valign="top">
+        <p><div><h2 align="center"><button type="button" class="btn btn-secondary btn-lg btn-block label disabled">Lunch</button></h2></div></p>
+          <% PlannedMeal.where(itinerary_id: @itinerary.id, order_in_day: "Lunch", day_id: i).each do |meal| %> 
+            <% api_auth_header = { 'Authorization' => 'Bearer ' + ENV.fetch('YELP_API_KEY') } %>
+            <% base_url = 'https://api.yelp.com/v3/businesses/' %>
+            <% search_id = meal.rest_id %>
+            <% api_response = HTTParty.get(base_url + search_id, headers: api_auth_header) %>
+            <% @parsed_data = JSON.parse(api_response.body) %>
+            
+            <% @yelpid = @parsed_data.dig('id') %>
+            <% @image_url = @parsed_data.dig('image_url') %>
+            <% @name = @parsed_data.dig('name') %>
+            <% @address = @parsed_data.dig('location', 'address1') %>
+            <% @city = @parsed_data.dig('location', 'city') %>
+            <% @state = @parsed_data.dig('location', 'state') %>
+            <% @zip = @parsed_data.dig('location', 'zip_code') %>
+            <% @rating = @parsed_data.dig('rating') %>
+            <% @category = @parsed_data.dig('categories', 0, 'title') %>
+            <% @link = @parsed_data.dig('url') %>
+            
+            <div class="row justify-content-center align-items-center">
+            <div class="card border-secondary mb-3" style="width: 300px">
+              <img class="card-img-top centered-and-cropped" width="400" height="300" src="<%= @image_url %>">
+              <div class="card-body">
+                <h5 class="card-title"><a href="<%= @link %>"><%= @name %></a></h5>
+                <p class="card-text"><%= @address %></p>
+                <%= @city.to_s + ", " + @state.to_s + " " + @zip.to_s %>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="badge badge-secondary">Category</span>  <%= @category %></li>
+                <li class="list-group-item"><span class="badge badge-secondary">Rating</span>  <%= @rating %> / 5.0</li>
+                <li class="list-group-item"><a class="btn btn-danger btn-sm" href="/delete_planned_meal/<%= meal.id %>" role="button">Remove meal</a></li>
+              </ul>
+            </div>
+            </div>
+            <% end %>
+        </td>
+        
+        <!--DINNER-->
+        <td colspan="2" valign="top">
+        <p><div><h2 align="center"><button type="button" class="btn btn-secondary btn-lg btn-block label disabled">Dinner</button></h2></div></p>
+          <% PlannedMeal.where(itinerary_id: @itinerary.id, order_in_day: "Dinner", day_id: i).each do |meal| %> 
+            <% api_auth_header = { 'Authorization' => 'Bearer ' + ENV.fetch('YELP_API_KEY') } %>
+            <% base_url = 'https://api.yelp.com/v3/businesses/' %>
+            <% search_id = meal.rest_id %>
+            <% api_response = HTTParty.get(base_url + search_id, headers: api_auth_header) %>
+            <% @parsed_data = JSON.parse(api_response.body) %>
+            
+            <% @yelpid = @parsed_data.dig('id') %>
+            <% @image_url = @parsed_data.dig('image_url') %>
+            <% @name = @parsed_data.dig('name') %>
+            <% @address = @parsed_data.dig('location', 'address1') %>
+            <% @city = @parsed_data.dig('location', 'city') %>
+            <% @state = @parsed_data.dig('location', 'state') %>
+            <% @zip = @parsed_data.dig('location', 'zip_code') %>
+            <% @rating = @parsed_data.dig('rating') %>
+            <% @category = @parsed_data.dig('categories', 0, 'title') %>
+            <% @link = @parsed_data.dig('url') %>
+            
+            <div class="row justify-content-center align-items-center">
+            <div class="card border-secondary mb-3" style="width: 300px">
+              <img class="card-img-top centered-and-cropped" width="400" height="300" src="<%= @image_url %>">
+              <div class="card-body">
+                <h5 class="card-title"><a href="<%= @link %>"><%= @name %></a></h5>
+                <p class="card-text"><%= @address %></p>
+                <%= @city.to_s + ", " + @state.to_s + " " + @zip.to_s %>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="badge badge-secondary">Category</span>  <%= @category %></li>
+                <li class="list-group-item"><span class="badge badge-secondary">Rating</span>  <%= @rating %> / 5.0</li>
+                <li class="list-group-item"><a class="btn btn-danger btn-sm" href="/delete_planned_meal/<%= meal.id %>" role="button">Remove meal</a></li>
+              </ul>
+            </div>
+            </div>
+            <% end %>
+          </td>
+      </tr>
+      
+      <tr>
+          <!--MORNING-->
+      <td colspan="2" valign="top">
+        <p><div><h2 align="center"><button type="button" class="btn btn-secondary btn-lg btn-block disabled label">Morning</button></h2></div></p>
+          <% PlannedFun.where(itinerary_id: @itinerary.id, order_in_day: "Morning", day_id: i).each do |fun| %> 
+            <% api_auth_header = { 'Authorization' => 'Bearer ' + ENV.fetch('YELP_API_KEY') } %>
+            <% base_url = 'https://api.yelp.com/v3/businesses/' %>
+            <% search_id = fun.place_id %>
+            <% api_response = HTTParty.get(base_url + search_id, headers: api_auth_header) %>
+            <% @parsed_data = JSON.parse(api_response.body) %>
+            
+            <% @yelpid = @parsed_data.dig('id') %>
+            <% @image_url = @parsed_data.dig('image_url') %>
+            <% @name = @parsed_data.dig('name') %>
+            <% @address = @parsed_data.dig('location', 'address1') %>
+            <% @city = @parsed_data.dig('location', 'city') %>
+            <% @state = @parsed_data.dig('location', 'state') %>
+            <% @zip = @parsed_data.dig('location', 'zip_code') %>
+            <% @rating = @parsed_data.dig('rating') %>
+            <% @category = @parsed_data.dig('categories', 0, 'title') %>
+            <% @link = @parsed_data.dig('url') %>
+            
+            <div class="row justify-content-center align-items-center">
+            <div class="card border-secondary mb-3" style="width: 300px">
+              <img class="card-img-top centered-and-cropped" width="400" height="300" src="<%= @image_url %>">
+              <div class="card-body">
+                <h5 class="card-title"><a href="<%= @link %>"><%= @name %></a></h5>
+                <p class="card-text"><%= @address %></p>
+                <%= @city.to_s + ", " + @state.to_s + " " + @zip.to_s %>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="badge badge-secondary">Category</span>  <%= @category %></li>
+                <li class="list-group-item"><span class="badge badge-secondary">Rating</span>  <%= @rating %> / 5.0</li>
+                <li class="list-group-item"><a class="btn btn-danger btn-sm" href="/delete_planned_fun/<%= fun.id %>" role="button">Remove place</a></li>
+              </ul>
+            </div>
+            </div>
           <% end %>
-      
-      <div><h4>Morning</h4></div>
-      
-      <div><h4>Lunch</h4></div>
-      
-      <div><h4>Afternoon</h4></div>
-      
-      <div><h4>Dinner</h4></div>
-      
-      <div><h4>Evening</h4></div>
-    
+        </td>
+
+          <!--AFTERNOON-->
+        <td colspan="2" valign="top">
+        <p><div><h2 align="center"><button type="button" class="btn btn-secondary btn-lg btn-block disabled label">Afternoon</button></h2></div></p>
+          <% PlannedFun.where(itinerary_id: @itinerary.id, order_in_day: "Afternoon", day_id: i).each do |fun| %> 
+            <% api_auth_header = { 'Authorization' => 'Bearer ' + ENV.fetch('YELP_API_KEY') } %>
+            <% base_url = 'https://api.yelp.com/v3/businesses/' %>
+            <% search_id = fun.place_id %>
+            <% api_response = HTTParty.get(base_url + search_id, headers: api_auth_header) %>
+            <% @parsed_data = JSON.parse(api_response.body) %>
+            
+            <% @yelpid = @parsed_data.dig('id') %>
+            <% @image_url = @parsed_data.dig('image_url') %>
+            <% @name = @parsed_data.dig('name') %>
+            <% @address = @parsed_data.dig('location', 'address1') %>
+            <% @city = @parsed_data.dig('location', 'city') %>
+            <% @state = @parsed_data.dig('location', 'state') %>
+            <% @zip = @parsed_data.dig('location', 'zip_code') %>
+            <% @rating = @parsed_data.dig('rating') %>
+            <% @category = @parsed_data.dig('categories', 0, 'title') %>
+            <% @link = @parsed_data.dig('url') %>
+            
+            <div class="row justify-content-center align-items-center">
+            <div class="card border-secondary mb-3" style="width: 300px">
+              <img class="card-img-top centered-and-cropped" width="400" height="300" src="<%= @image_url %>">
+              <div class="card-body">
+                <h5 class="card-title"><a href="<%= @link %>"><%= @name %></a></h5>
+                <p class="card-text"><%= @address %></p>
+                <%= @city.to_s + ", " + @state.to_s + " " + @zip.to_s %>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="badge badge-secondary">Category</span>  <%= @category %></li>
+                <li class="list-group-item"><span class="badge badge-secondary">Rating</span>  <%= @rating %> / 5.0</li>
+                <li class="list-group-item"><a class="btn btn-danger btn-sm" href="/delete_planned_fun/<%= fun.id %>" role="button">Remove place</a></li>
+              </ul>
+            </div>
+            </div>
+          <% end %>
+        </td>
+
+
+          <!--EVENING-->
+        <td colspan="2" valign="top">
+        <p><div><h2 align="center"><button type="button" class="btn btn-secondary btn-lg btn-block disabled label">Evening</button></h2></div></p>
+          <% PlannedFun.where(itinerary_id: @itinerary.id, order_in_day: "Evening", day_id: i).each do |fun| %> 
+            <% api_auth_header = { 'Authorization' => 'Bearer ' + ENV.fetch('YELP_API_KEY') } %>
+            <% base_url = 'https://api.yelp.com/v3/businesses/' %>
+            <% search_id = fun.place_id %>
+            <% api_response = HTTParty.get(base_url + search_id, headers: api_auth_header) %>
+            <% @parsed_data = JSON.parse(api_response.body) %>
+            
+            <% @yelpid = @parsed_data.dig('id') %>
+            <% @image_url = @parsed_data.dig('image_url') %>
+            <% @name = @parsed_data.dig('name') %>
+            <% @address = @parsed_data.dig('location', 'address1') %>
+            <% @city = @parsed_data.dig('location', 'city') %>
+            <% @state = @parsed_data.dig('location', 'state') %>
+            <% @zip = @parsed_data.dig('location', 'zip_code') %>
+            <% @rating = @parsed_data.dig('rating') %>
+            <% @category = @parsed_data.dig('categories', 0, 'title') %>
+            <% @link = @parsed_data.dig('url') %>
+            
+            <div class="row justify-content-center align-items-center">
+            <div class="card border-secondary mb-3" style="width: 300px">
+              <img class="card-img-top centered-and-cropped" width="400" height="300" src="<%= @image_url %>">
+              <div class="card-body">
+                <h5 class="card-title"><a href="<%= @link %>"><%= @name %></a></h5>
+                <p class="card-text"><%= @address %></p>
+                <%= @city.to_s + ", " + @state.to_s + " " + @zip.to_s %>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="badge badge-secondary">Category</span>  <%= @category %></li>
+                <li class="list-group-item"><span class="badge badge-secondary">Rating</span>  <%= @rating %> / 5.0</li>
+                <li class="list-group-item"><a class="btn btn-danger btn-sm" href="/delete_planned_fun/<%= fun.id %>" role="button">Remove place</a></li>
+              </ul>
+            </div>
+            </div>
+          <% end %>
+        </td>
+
+      </tr>
+    </table>
+    </div>
+    <br>
+    <br>
     <% end %>
 
   </div>

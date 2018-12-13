@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="/">
       Odyssey
@@ -12,7 +12,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <% unless current_user.nil? %>
-            <a class="nav-link" href="/itineraries/<%= current_user.id %>">
+            <a class="nav-link" href="/itineraries">
               My Trips
             </a>
             <% end %>
@@ -24,6 +24,10 @@
             </a>
         </li>
         
+        <li class="navitem">
+            &nbsp; 
+        </li>
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Explore
@@ -31,8 +35,6 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/places">Places</a>
             <a class="dropdown-item" href="/restaurants">Restaurants</a>
-            <!--<div class="dropdown-divider"></div>-->
-            <a class="dropdown-item" href="/hotels">Hotels</a>
           </div>
       </li>
         
@@ -51,11 +53,6 @@
             </a>
           </li>
         <% else %>
-          <li class="nav-item">
-            <a href="/users/<%= current_user.id %>" class="nav-link">
-              View Profile
-            </a>
-          </li>
           
           <li class="nav-item">
             <a href="/users/edit" class="nav-link">

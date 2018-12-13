@@ -5,12 +5,12 @@
 <div class="row mb-5">
   <div class="col-md-15">
     <h1 align="center">
-      Restaurants near <%= @location %>
+      Things to do near <%= @location %>
     </h1>
 
     <div class="row mb-1">
       <div class="col">
-        <a href="/restaurants" class="btn btn-block btn-secondary">
+        <a href="/places" class="btn btn-block btn-secondary">
           New search
         </a>
       </div>
@@ -62,7 +62,7 @@
                     <div class="modal-body">
                       
                       <!--Begin form-->
-                      <form action="/create_planned_meal">
+                      <form action="/create_planned_fun">
                         
                         <div class="form-group">
                           <label for="itinerary_id" class="col-form-label">Itinerary:</label>&nbsp;
@@ -76,7 +76,7 @@
                         
                         <div class="form-group">
                           <label for="order_in_day" class="col-form-label">Meal:</label>&nbsp;
-                          <%= select_tag("order_in_day", options_for_select(["Breakfast","Lunch","Dinner"], @term), :class => "form-control") %>
+                          <%= select_tag("order_in_day", options_for_select(["Morning","Afternoon","Evening"], @term), :class => "form-control") %>
                         </div>
                         
                         <input type="hidden" name="yelpid" value="<%= @yelpid %>">

@@ -3,10 +3,17 @@ class RestaurantsController < ApplicationController
     if(params.has_key?(:location))
       @location = params.fetch("location")
     end
+    if(params.has_key?(:itinerary_id))
+      @current_itinerary_id = params.fetch("itinerary_id")
+    end
     render("restaurant_templates/index.html.erb")
   end
 
   def results
+    if(params.has_key?(:itinerary_id))
+      @current_itinerary_id = params.fetch("itinerary_id")
+    end
+
     api_auth_header = { 'Authorization' => 'Bearer ' + ENV.fetch('YELP_API_KEY') }
     base_url = 'https://api.yelp.com/v3/businesses/search'
     @location = params.fetch("location")
@@ -51,25 +58,25 @@ class RestaurantsController < ApplicationController
     render("restaurant_templates/edit_form.html.erb")
   end
 
-  def update_row
-    @restaurant = Restaurant.find(params.fetch("id_to_modify"))
+  # def update_row
+  #   @restaurant = Restaurant.find(params.fetch("id_to_modify"))
 
-    @restaurant.rest_name = params.fetch("rest_name")
-    @restaurant.rest_address = params.fetch("rest_address")
-    @restaurant.rest_genre = params.fetch("rest_genre")
-    @restaurant.rest_rating = params.fetch("rest_rating")
-    @restaurant.rest_link = params.fetch("rest_link")
-    @restaurant.rest_pic = params.fetch("rest_pic")
-    @restaurant.rest_menu = params.fetch("rest_menu")
+  #   @restaurant.rest_name = params.fetch("rest_name")
+  #   @restaurant.rest_address = params.fetch("rest_address")
+  #   @restaurant.rest_genre = params.fetch("rest_genre")
+  #   @restaurant.rest_rating = params.fetch("rest_rating")
+  #   @restaurant.rest_link = params.fetch("rest_link")
+  #   @restaurant.rest_pic = params.fetch("rest_pic")
+  #   @restaurant.rest_menu = params.fetch("rest_menu")
 
-    if @restaurant.valid?
-      @restaurant.save
+  #   if @restaurant.valid?
+  #     @restaurant.save
 
-      redirect_to("/restaurants/#{@restaurant.id}", :notice => "Restaurant updated successfully.")
-    else
-      render("restaurant_templates/edit_form_with_errors.html.erb")
-    end
-  end
+  #     redirect_to("/restaurants/#{@restaurant.id}", :notice => "Restaurant updated successfully.")
+  #   else
+  #     render("restaurant_templates/edit_form_with_errors.html.erb")
+  #   end
+  # end
 
   def destroy_row
     @restaurant = Restaurant.find(params.fetch("id_to_remove"))

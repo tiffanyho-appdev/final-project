@@ -20,16 +20,17 @@ class PlannedFunsController < ApplicationController
   def create_row
     @planned_fun = PlannedFun.new
 
-    @planned_fun.place_id = params.fetch("place_id")
-    @planned_fun.day_id = params.fetch("day_id")
+    @planned_fun.place_id = params.fetch("yelpid")
+    @planned_fun.day_id = params.fetch("day")
     @planned_fun.order_in_day = params.fetch("order_in_day")
-
-    if @planned_fun.valid?
+    @planned_fun.itinerary_id = params.fetch("itinerary_id")
+    
+    if @planned_fun.day_id.to_i > Itinerary.where(id: @planned_fun.itinerary_id).first.days_in_trip.to_i
+      flash[:notice] = 'That day does not exist in this itinerary. Please select an appropriate date'
+      redirect_back fallback_location: 'places/results.html?itinerary_id=' + @planned_meal.itinerary_id.to_s
+    elsif @planned_fun.valid?
       @planned_fun.save
-
-      redirect_back(:fallback_location => "/planned_funs", :notice => "Planned fun created successfully.")
-    else
-      render("planned_fun_templates/new_form_with_errors.html.erb")
+      redirect_to("/itineraries/"+ @planned_fun.itinerary_id.to_s, :notice => "Planned fun created successfully.")
     end
   end
 
@@ -60,6 +61,6 @@ class PlannedFunsController < ApplicationController
 
     @planned_fun.destroy
 
-    redirect_to("/planned_funs", :notice => "Planned fun deleted successfully.")
+    redirect_to("/itineraries/" + @planned_fun.itinerary_id.to_s, :notice => "Planned activity deleted successfully.")
   end
 end
